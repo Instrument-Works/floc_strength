@@ -1,0 +1,290 @@
+<GeneralSettingsScreen>:
+    slider_clarity_threshold: slider_clarity_threshold
+    slider_floc_strength_threshold: slider_floc_strength_threshold
+    slider_experiment_duration: slider_experiment_duration
+
+    button_clear_storage: button_clear_storage
+    button_apply_settings: button_apply_settings
+    button_factory_reset: button_factory_reset
+
+    textInput_low_speed: textInput_low_speed
+    textInput_med_speed: textInput_med_speed
+    textInput_high_speed: textInput_high_speed
+
+	canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [180, 0, 180, root.height]
+        Line:
+            points: [180, root.height - 43, root.width, root.height - 43]
+
+    Label:
+        pos: 180, root.height - 43 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'General Settings'       
+
+## Side Menu UI
+	BoxLayout:
+        pos: 0, 0
+        size_hint: None, None
+        size: 180, root.height
+        orientation: 'vertical'
+        padding: 15
+        spacing: 15
+
+        Button:
+            id: button_navi_general_settings
+            state: 'down'
+            disabled: True
+            background_normal: 'images/buttons/button_general_normal.png'
+            background_disabled_down: 'images/buttons/button_general_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_camera
+            background_normal: 'images/buttons/button_camera_normal.png'
+            background_down: 'images/buttons/button_camera_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_pump_calibration
+            background_normal: 'images/buttons/button_pump_calibration_normal.png'
+            background_down: 'images/buttons/button_pump_calibration_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_back
+            background_normal: 'images/buttons/button_back_normal.png'
+            background_down: 'images/buttons/button_back_down.png'
+            on_release: root.onTapNavigationButtons(self)
+
+## Main UI
+    BoxLayout:
+        pos: 181, 0
+        size_hint: None, None
+        size: root.width - 180, root.height - 43
+        orientation: 'vertical'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 5
+            spacing: 5
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 5
+                spacing: 5
+
+                Label:
+                    text_size: self.size
+                    font_size: 18
+                    color: 0, 143 / 255.0, 206 / 255.0, 1
+                    halign: 'center'
+                    valign: 'center'
+                    text: 'Low Force Speed'
+
+                TextInput:
+                    id: textInput_low_speed
+                    font_size: 16
+                    padding: 85, 9, 0, 0
+                    input_filter: 'int'
+                    multiline: False
+                    background_normal: 'images/general_settings/text_field_background.png'
+                    background_active: 'images/general_settings/text_field_background.png'
+                    text: '20'
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 5
+                spacing: 5
+
+                Label:
+                    text_size: self.size
+                    font_size: 18
+                    color: 0, 143 / 255.0, 206 / 255.0, 1
+                    halign: 'center'
+                    valign: 'center'
+                    text: 'Med Force Speed'
+
+                TextInput:
+                    id: textInput_med_speed
+                    font_size: 16
+                    padding: 85, 9, 0, 0
+                    input_filter: 'int'
+                    multiline: False
+                    background_normal: 'images/general_settings/text_field_background.png'
+                    background_active: 'images/general_settings/text_field_background.png'
+                    text: '30'
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 5
+                spacing: 5
+
+                Label:
+                    text_size: self.size
+                    font_size: 18
+                    color: 0, 143 / 255.0, 206 / 255.0, 1
+                    halign: 'center'
+                    valign: 'center'
+                    text: 'High Force Speed'
+
+                TextInput:
+                    id: textInput_high_speed
+                    font_size: 16
+                    padding: 85, 9, 0, 0
+                    input_filter: 'int'
+                    multiline: False
+                    background_normal: 'images/general_settings/text_field_background.png'
+                    background_active: 'images/general_settings/text_field_background.png'
+                    text: '50'
+
+
+
+
+
+
+        RelativeLayout:
+            id: container_1
+            Slider:
+                id: slider_clarity_threshold
+                size_hint: 0.6, 1
+                pos: (container_1.width - self.width) / 2, 0
+                orientation: 'horizontal'
+                cursor_image: 'images/slider/slider_cursor.png'
+                cursor_size: 40, 40 
+                min: 10
+                max: 50
+                step: 1
+                value: 20
+                value_track: True
+                value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+            Label:
+                size_hint: 0.17, 1
+                pos: 10, 0
+                text_size: self.size
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                halign: 'right'
+                valign: 'center'
+                font_size: 18
+                text: 'Clarity Threshold'
+
+            Label:
+                id: label_clarity_threshold_reading
+                size_hint: 0.18, 1
+                pos: slider_clarity_threshold.right + 15, 0
+                text_size: self.size
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                halign: 'left'
+                valign: 'center'
+                font_size: 18
+                text: str(int(slider_clarity_threshold.value))
+
+        RelativeLayout:
+            id: container_2
+            Slider:
+                id: slider_floc_strength_threshold
+                size_hint: 0.6, 1
+                pos: (container_2.width - self.width) / 2, 0
+                orientation: 'horizontal'
+                cursor_image: 'images/slider/slider_cursor.png'
+                cursor_size: 40, 40 
+                min: 0.5
+                max: 1
+                step: 0.01
+                value: 0.75
+                value_track: True
+                value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+            Label:
+                size_hint: 0.17, 1
+                pos: 10, 0
+                text_size: self.size
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                halign: 'right'
+                valign: 'center'
+                font_size: 18
+                text: 'Floc Strength Threshold'
+
+            Label:
+                id: label_clarity_threshold_reading
+                size_hint: 0.18, 1
+                pos: slider_floc_strength_threshold.right + 15, 0
+                text_size: self.size
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                halign: 'left'
+                valign: 'center'
+                font_size: 18
+                text: str(slider_floc_strength_threshold.value)
+
+        RelativeLayout:
+            id: container_3
+            Slider:
+                id: slider_experiment_duration
+                size_hint: 0.6, 1
+                pos: (container_3.width - self.width) / 2, 0
+                orientation: 'horizontal'
+                cursor_image: 'images/slider/slider_cursor.png'
+                cursor_size: 40, 40 
+                min: 10
+                max: 100
+                step: 1
+                value: 20
+                value_track: True
+                value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+            Label:
+                size_hint: 0.17, 1
+                pos: 10, 0
+                text_size: self.size
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                halign: 'right'
+                valign: 'center'
+                font_size: 18
+                text: 'Sampling Duration'
+
+            Label:
+                id: label_experiment_duratioin
+                size_hint: 0.18, 1
+                pos: slider_experiment_duration.right + 15, 0
+                text_size: self.size
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                halign: 'left'
+                valign: 'center'
+                font_size: 18
+                text: str(int(slider_experiment_duration.value))
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 22
+            spacing: 22
+
+            Button:
+                id: button_clear_storage
+                background_normal: 'images/general_settings/button_clear_storage_space_normal.png'
+                background_down: 'images/general_settings/button_clear_storage_space_down.png'
+                background_disabled_normal: 'images/general_settings/button_clear_storage_space_disabled.png'
+                on_release: root.onReleaseClearStorageButton()
+            Button:
+                id: button_apply_settings
+                background_normal: 'images/general_settings/button_apply_settings_normal.png'
+                background_down: 'images/general_settings/button_apply_settings_down.png'
+                background_disabled_normal: 'images/general_settings/button_apply_settings_disabled.png'
+                on_release: root.onReleaseApplySettingsButton()
+            Button:
+                id: button_factory_reset
+                background_normal: 'images/general_settings/button_factory_reset_normal.png'
+                background_down: 'images/general_settings/button_factory_reset_down.png'
+                background_disabled_normal: 'images/general_settings/button_factory_reset_disabled.png'
+                on_release: root.onReleaseFactoryResetButton()

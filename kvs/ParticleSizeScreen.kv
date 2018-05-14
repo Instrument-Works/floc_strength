@@ -1,0 +1,212 @@
+<ParticleSizeScreen>:
+    
+    image_pfd: image_pfd
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+        Color:
+            rgba: 235 / 255.0, 235 / 255.0, 235 / 255.0, 1
+        Rectangle:
+            pos: 18, 18
+            size: 368, 280
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [0, root.height - 43, root.width, root.height - 43]
+        Line:
+            points: [0, root.height - 165, root.width, root.height - 165]
+        Line:
+            ## points: [root.width / 2, root.height - 43, root.width / 2, root.height - 165]
+
+## Title Label
+    Label:
+        center_x: root.center_x
+        y: root.height - 43 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 20
+        text: 'Particle Size Analysis'    
+
+## Home Button
+    Button:
+        background_normal: 'images/buttons/home_small.png'
+        size_hint: None, None
+        size: 28, 27
+        pos: 20, root.height - 36
+        on_press: root.manager.transition.direction = 'right'
+        on_release: root.manager.current = 'menu'
+
+## Test Name Input
+    Label:
+        id: label_test_name
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        font_size: 18
+        text: "Test Name:"
+        size_hint: None, None
+        size: 100, 50
+        x: 32
+        y: root.height - self.height - 50
+
+    TextInput:
+        id: textInput_test_name
+        size_hint: None, None
+        size: 220, 36
+        x: label_test_name.right + 10
+        center_y: label_test_name.center_y
+        font_size: 18
+        background_normal: 'images/text_input/normal.png'
+        background_active: 'images/text_input/active.png'
+        hint_text: 'Test Name'
+
+## PFD 
+    Image:
+        id: image_pfd
+        source: 'images/particle_size_analysis/PFD_0.png'
+        size_hint: None, None
+        size: 324, 61
+        pos: 36, root.height - 165
+
+## Start Button
+    Button:
+        id: button_start_experiment
+        size_hint: None, None
+        size: 180, 50
+        center_x: root.center_x * 1.5
+        y: root.height - self.height - 79
+        background_normal: 'images/buttons/button_start_normal.png'
+        background_down: 'images/buttons/button_start_down.png'
+        on_release:root.onReleaseStartButton()
+
+## Experiment Results
+    Label:
+        id: label_time_remaining
+        x: root.center_x + 20
+        y: root.height - self.height - 165 - 30 
+        size_hint: None, None
+        size: 120, 35
+        color: 82 / 2550, 82 / 255.0, 82 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'right'
+        valign: 'center'
+        font_size: 16
+        text: 'Time Remaining:'
+
+    Label:
+        id: label_time_remaining_value
+        x: label_time_remaining.right + 130
+        center_y: label_time_remaining.center_y
+        size_hint: None, None
+        size: 120, 35
+        color: 82 / 2550, 82 / 255.0, 82 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'left'
+        valign: 'center'
+        font_size: 16
+        text: 'mm:ss' 
+
+    BoxLayout:
+        x: root.center_x + 20
+        y: 20
+        size_hint: None, None
+        size: 120, 220
+        orientation: 'vertical'
+        padding: 3
+        spacing: 3
+
+        canvas.before:
+            Color:
+                rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            width: 300
+            halign: 'left'
+            text: 'Particles Counted:'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: 'Mean Particle Size:'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: 'Standard Deviation:'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: 'Median Particle Size:'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: 'Smallest Particle Size:'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: 'Largest Particle Size:'
+
+    BoxLayout:
+        center_x: label_time_remaining_value.center_x - 50
+        y: 20
+        size_hint: None, None
+        size: 120, 220
+        orientation: 'vertical'
+        padding: 3
+        spacing: 3
+
+        canvas.before:
+            Color:
+                rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: '1002'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: '10.2 µm'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: '10.2 µm'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: '10.2 µm'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: '10.2 µm'
+
+        Label:
+            color: 0, 123 / 255.0, 195 / 255.0, 1
+            font_size: 16
+            text: '10.2 µm'
+
+

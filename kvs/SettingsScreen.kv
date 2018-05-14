@@ -1,0 +1,132 @@
+<SettingsScreen>:
+    button_initialise: button_initialise
+    button_low_flow: button_low_flow
+    button_high_flow: button_high_flow
+
+	canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [180, 0, 180, root.height]
+        Line:
+            points: [180, root.height - 43, root.width, root.height - 43]
+
+    Label:
+        pos: 180, root.height - 43 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Pump Calibration'       
+
+## Side Menu UI
+	BoxLayout:
+        pos: 0, 0
+        size_hint: None, None
+        size: 180, root.height
+        orientation: 'vertical'
+        padding: 15
+        spacing: 15
+
+        Button:
+            id: button_navi_general_settings
+            background_normal: 'images/buttons/button_general_normal.png'
+            background_down: 'images/buttons/button_general_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_camera
+            background_normal: 'images/buttons/button_camera_normal.png'
+            background_down: 'images/buttons/button_camera_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_pump_calibration
+            state: 'down'
+            disabled: True
+            background_normal: 'images/buttons/button_pump_calibration_normal.png'
+            background_disabled_down: 'images/buttons/button_pump_calibration_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_back
+            background_normal: 'images/buttons/button_back_normal.png'
+            background_down: 'images/buttons/button_back_down.png'
+            on_release: root.onTapNavigationButtons(self)
+
+## Main UI
+    Label:
+        id: label_step_one
+        pos: 210, root.height - 52 - self.height
+        size_hint: None, None
+        size: 375, 95
+        ##text_size: self.width, self.height
+        ##height: self.texture_size[1]
+        halign: 'left'
+        ##valign: 'center'
+        markup: True
+        text: '[size=16][b][color=#525252]Step1: Initialise\n[/color][/b][/size][size=16][color=#525252]Place a beaker of 250mL of pure water at the inlet\nof the  system.  Then touch Initialise.  This will fill the\nsystem with water.[/color][/size]'
+
+    Label:
+        id: label_step_two
+        x: label_step_one.x
+        y: label_step_one.y - self.height - 25
+        size_hint: None, None
+        size: 375, 130
+        ##text_size: self.width, self.height
+        ##height: self.texture_size[1]
+        halign: 'left'
+        ##valign: 'center'
+        markup: True
+        text: '[size=16][b][color=#525252]Step2: Low Flow\n[/color][/b][/size][size=16][color=#525252]Place a beaker of 250mL of pure water at the inlet\nof the  system.  Then touch Initialise.  This will fill the\nsystem with water.\n\nWARNING: If no water has yet reached the outlet, you\nmay beed to initialise again.[/color][/size]'
+
+    Label:
+        id: label_step_three
+        x: label_step_two.x
+        y: label_step_two.y - self.height - 25
+        size_hint: None, None
+        size: 375, 130
+        ##text_size: self.width, self.height
+        ##height: self.texture_size[1]
+        halign: 'left'
+        ##valign: 'center'
+        markup: True
+        text: '[size=16][b][color=#525252]Step3: High Flow\n[/color][/b][/size][size=16][color=#525252]Place a beaker of 250mL of pure water at the inlet\nof the  system.  Then touch Initialise.  This will fill the\nsystem with water.\n\nWARNING: If no water has yet reached the outlet, you\nmay beed to initialise again.[/color][/size]'
+
+
+    ToggleButton:
+        id: button_initialise
+        size_hint: None, None
+        size: 140, 44
+        x: label_step_one.right + 35
+        center_y: label_step_one.center_y
+        background_normal: 'images/buttons/button_initialise_normal.png'
+        background_disabled_normal: 'images/buttons/button_done_down.png'
+        on_release: root.onTapButtonInitialise()
+
+    ToggleButton:
+        id: button_low_flow
+        size_hint: None, None
+        size: 140, 44
+        x: label_step_two.right + 35
+        center_y: label_step_two.center_y
+        background_normal: 'images/buttons/button_low_flow_normal.png'
+        background_disabled_normal: 'images/buttons/button_done_down.png'
+        on_release: root.onTapButtonLowFlow()
+
+    ToggleButton:
+        id: button_high_flow
+        size_hint: None, None
+        size: 140, 44
+        x: label_step_three.right + 35
+        center_y: label_step_three.center_y
+        background_normal: 'images/buttons/button_high_flow_normal.png'
+        background_disabled_normal: 'images/buttons/button_done_down.png'
+        on_release: root.onTapButtonHighFlow()
+

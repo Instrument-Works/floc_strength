@@ -1,0 +1,259 @@
+<ManualModeScreen>:
+    slider_pump_speed: slider_pump_speed
+    slider_imaging_count: slider_imaging_count
+    slider_imaging_frequency: slider_imaging_frequency
+    label_remaining_photos: label_remaining_photos
+    toggleButton_start_pump: toggleButton_start_pump
+    toggle_reverse_pump: toggle_reverse_pump
+    button_valve_position: button_valve_position
+    button_start_imaging: button_start_imaging
+
+	canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [0, root.height - 43, root.width, root.height - 43]
+
+    Label:
+        y: root.height - 43
+        center_x: root.center_x 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Manual Operation'       
+
+    Button:
+        background_normal: ''
+        background_color: 1, 1, 1, 0
+        markup: True
+        text: '[size=26][font=glyphicons][/font][/size]'
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        size_hint: None, None
+        size: 40, 40
+        pos: 20, root.height - 42
+        on_press: root.manager.transition.direction = 'right'
+        # on_release: root.manager.current = 'menu'
+        on_release: root.onTapBackButton()
+
+## Pump UI
+    Label:
+        pos: 115, root.height - 63 - self.height
+        size_hint: None, None
+        size: 113, 32
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Pump Speed'
+
+    Slider:
+        id: slider_pump_speed
+        size_hint: None, None
+        size: 40, 205
+        pos: 151, root.height - 310
+        cursor_image: 'images/slider/slider_cursor.png'
+        cursor_size: 40, 40
+        orientation: 'vertical'
+        min: 0
+        max: 50
+        step: 0.1
+        value: 20
+        value_track: True
+        value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+    Label:
+        pos: 117, root.height - 335 - self.height
+        size_hint: None, None
+        size: 109, 32
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: str(slider_pump_speed.value) + ' mL/min'
+
+    ToggleButton:
+        id: toggleButton_start_pump
+        size_hint: None, None
+        size: 120, 46
+        pos: 42, root.height - 393 - self.height
+        background_normal: 'images/manual_operation/button_start_pump_normal.png'
+        background_down: 'images/manual_operation/button_start_pump_down.png'
+        on_release: root.onTapButtonStartPump(self)
+
+    ToggleButton:
+        id: toggle_reverse_pump
+        size_hint: None, None
+        size: 120, 46
+        pos: toggleButton_start_pump.right + 10, toggleButton_start_pump.y
+        background_normal: 'images/manual_operation/button_forward_pump.png'
+        background_down: 'images/manual_operation/button_reverse_pump_normal.png'
+        on_release: root.onTapButtonReversePump(self)
+
+
+## Valve UI
+    Label:
+        id: label_valve_position
+        size_hint: None, None
+        size: 122, 32
+        pos: 335, root.height - 68 - self.height
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Valve Position:'
+
+    ToggleButton:
+        id: button_valve_position
+        size_hint: None, None
+        size: 240, 50
+        x: label_valve_position.right + 15
+        center_y: label_valve_position.center_y
+        background_normal: 'images/manual_operation/button_open_normal.png'
+        background_down: 'images/manual_operation/button_open_down.png'
+        on_release: root.onTapButtonValve(self)
+
+
+## Imaging UI
+    Label:
+        size_hint: None, None
+        size: 72, 32
+        pos: 487, root.height - 193 - self.height
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Imaging'
+    ## Count
+    Label:
+        id: label_imaging_count
+        size_hint: None, None
+        size: 100, 32
+        pos: 300, root.height - 239 - self.height
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'right'
+        valign: 'center'
+        font_size: 18
+        text: 'Count'
+    Label:
+        id: label_imaging_count_reading
+        size_hint: None, None
+        size: 100, 32
+        x: 686
+        center_y: label_imaging_count.center_y
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'left'
+        valign: 'center'
+        font_size: 18
+        text: str(int(slider_imaging_count.value))
+    Slider:
+        id: slider_imaging_count
+        size_hint: None, None
+        height: 40
+        width: label_imaging_count_reading.x - label_imaging_count.right - 16
+        x: label_imaging_count.right + 8
+        center_y: label_imaging_count.center_y
+        orientation: 'horizontal'
+        cursor_image: 'images/slider/slider_cursor.png'
+        cursor_size: 40, 40 
+        min: 1
+        max: 100
+        step: 1
+        value: 10
+        value_track: True
+        value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+    Label:
+        id: label_imaging_frequency
+        size_hint: None, None
+        size: 100, 32
+        x: label_imaging_count.x
+        y: label_imaging_count.y - self.height - 8
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'right'
+        valign: 'center'
+        font_size: 18
+        text: 'Frequency'
+    Label:
+        id: label_imaging_frequency_reading
+        size_hint: None, None
+        size: 100, 32
+        x: label_imaging_count_reading.x
+        y: label_imaging_count_reading.y - self.height - 8
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'left'
+        valign: 'center'
+        font_size: 18
+        text: str(int(slider_imaging_frequency.value)) + ' sec'
+    Slider:
+        id: slider_imaging_frequency
+        size_hint: None, None
+        height: 40
+        width: label_imaging_frequency_reading.x - label_imaging_frequency.right - 16
+        x: label_imaging_frequency.right + 8
+        center_y: label_imaging_frequency.center_y
+        orientation: 'horizontal'
+        cursor_image: 'images/slider/slider_cursor.png'
+        cursor_size: 40, 40 
+        min: 1
+        max: 10
+        step: 1
+        value: 1
+        value_track: True
+        value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+    ToggleButton:
+        id: button_start_imaging
+        size_hint: None, None
+        size: 140, 46
+        pos: 368, root.height - 335 - self.height
+        background_normal: 'images/manual_operation/button_start_imaging_normal.png'
+        background_down: 'images/manual_operation/button_start_imaging_down.png'
+        on_release: root.onTapButtonStartImaging()
+
+    Button:
+        size_hint: None, None
+        size: 140, 46
+        x: button_start_imaging.right + 10
+        y: button_start_imaging.y
+        background_normal: 'images/manual_operation/button_export_images_normal.png'
+        background_down: 'images/manual_operation/button_export_images_down.png'
+        on_release: root.onTapButtonExportImages()
+
+    Label:
+        id: label_remaining_photos
+        size_hint: None, None
+        size: 192, 32
+        pos: 414, root.height - 405 - self.height
+        color: 82 / 255.0, 82 / 255.0, 85 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Remaining Photos: 0'
+
+
+
+

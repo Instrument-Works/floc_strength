@@ -1,0 +1,309 @@
+<FlocStrengthScreen>:
+    graph_boxLayout: graph_boxLayout
+    image_pfd: image_pfd
+    label_before_shear_count: label_before_shear_count
+    label_before_shear_mean: label_before_shear_mean
+    label_before_shear_sd: label_before_shear_sd
+    label_after_shear_count: label_after_shear_count
+    label_after_shear_mean: label_after_shear_mean
+    label_after_shear_sd: label_after_shear_sd
+    button_start_experiment: button_start_experiment
+
+    toggleButton_shear_force_low: toggleButton_shear_force_low
+    toggleButton_shear_force_mid: toggleButton_shear_force_mid
+    toggleButton_shear_force_high: toggleButton_shear_force_high
+
+    textInput_test_name: textInput_test_name
+
+
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [0, root.height - 43, root.width, root.height - 43]
+        Line:
+            points: [0, root.height - 165, root.width, root.height - 165]
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: 18, 18
+            size: 368, 280
+
+    BoxLayout:
+        id: graph_boxLayout
+        size_hint: None, None
+        size: 400, 310
+        pos: 0, 0
+
+    Label:
+        y: root.height - 43
+        center_x: root.center_x 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Floc Strength Assessment'          
+
+    Button:
+        background_normal: ''
+        background_color: 1, 1, 1, 0
+        markup: True
+        text: '[size=26][font=glyphicons][/font][/size]'
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        size_hint: None, None
+        size: 40, 40
+        pos: 20, root.height - 42
+        on_press: root.manager.transition.direction = 'right'
+        # on_release: root.manager.current = 'menu'
+        on_release: root.onTapBackButton()
+
+    Label:
+        id: label_shear_force
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        font_size: 18
+        text: "Shear Force:"
+        size_hint: None, None
+        size: 100, 50
+        x: root.width / 2 + 20
+        y: root.height - 50 - self.height
+
+    BoxLayout:
+        id: boxLayout_shear_force_radio
+        size_hint: None, None
+        x: label_shear_force.right + 30
+        center_y: label_shear_force.center_y
+        size: 210, 35
+        orientation: 'horizontal'
+        padding: 0
+        spacing: 0
+
+        ToggleButton:
+            id: toggleButton_shear_force_low
+            background_normal: 'images/radio_button1/left_normal.png'
+            background_down: 'images/radio_button1/left_down.png'
+            group: 'shear_force'
+        ToggleButton:
+            id: toggleButton_shear_force_mid
+            background_normal: 'images/radio_button1/middle_normal.png'
+            background_down: 'images/radio_button1/middle_down.png'
+            group: 'shear_force'
+            state: 'down'
+        ToggleButton:
+            id: toggleButton_shear_force_high
+            background_normal: 'images/radio_button1/right_normal.png'
+            background_down: 'images/radio_button1/right_down.png'
+            group: 'shear_force'
+
+    ToggleButton:
+        id: button_start_experiment
+        size_hint: None, None
+        size: 210, 47
+        center_x: boxLayout_shear_force_radio.center_x
+        y: boxLayout_shear_force_radio.y - self.height - 5 
+        background_normal: 'images/buttons/button_start_normal.png'
+        background_down: 'images/buttons/button_start_down.png'
+        on_release:root.onReleaseStartButton(self)
+
+    Image:
+        id: image_pfd
+        source: 'images/mockup_PFD.png'
+        size_hint: None, None
+        size: 324, 61
+        pos: 30, root.height - 165
+
+    Label:
+        id: label_test_name
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        font_size: 18
+        text: "Test Name:"
+        size_hint: None, None
+        size: 100, 50
+        x: 20
+        center_y: label_shear_force.center_y
+
+    TextInput:
+        id: textInput_test_name
+        size_hint: None, None
+        size: 200, 30
+        x: label_test_name.right + 10
+        center_y: label_test_name.center_y
+        background_normal: 'images/text_input/normal.png'
+        background_active: 'images/text_input/active.png'
+        hint_text: 'Test Name'
+
+## Experiment Results
+    Label:
+        id: label_before_shear_device
+        center_x: root.center_x * 1.5
+        y: root.height - self.height - 165 - 30 
+        size_hint: None, None
+        size: 200, 35
+        color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'BEFORE SHEAR DEVICE'
+
+    BoxLayout:
+        x: root.center_x + 20
+        y: 165
+        size_hint: None, None
+        size: 120, 100
+        orientation: 'vertical'
+        padding: 3
+        spacing: 3
+
+        canvas.before:
+            Color:
+                rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+            font_size: 16
+            width: 300
+            halign: 'left'
+            text: 'Particles Counted:'
+
+        Label:
+            color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+            font_size: 16
+            text: 'Mean Particle Size:'
+
+        Label:
+            color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+            font_size: 16
+            text: 'Standard Deviation:'
+
+    BoxLayout:
+        center_x: root.center_x * 1.75 - 50
+        y: 165
+        size_hint: None, None
+        size: 120, 100
+        orientation: 'vertical'
+        padding: 3
+        spacing: 3
+
+        canvas.before:
+            Color:
+                rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            id: label_before_shear_count
+            color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+            font_size: 16
+            text: '0'
+
+        Label:
+            id: label_before_shear_mean
+            color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+            font_size: 16
+            text: '0 µm'
+
+        Label:
+            id: label_before_shear_sd
+            color: 82 / 255.0, 207 / 255.0, 101 / 255.0, 1
+            font_size: 16
+            text: '0 µm'
+
+    Label:
+        id: label_after_shear_device
+        center_x: root.center_x * 1.5
+        y: root.height - self.height - 165 - 155 
+        size_hint: None, None
+        size: 200, 35
+        color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'AFTER SHEAR DEVICE'
+
+    BoxLayout:
+        x: root.center_x + 20
+        y: label_after_shear_device.y - self.height
+        size_hint: None, None
+        size: 120, 100
+        orientation: 'vertical'
+        padding: 3
+        spacing: 3
+
+        canvas.before:
+            Color:
+                rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+            font_size: 16
+            width: 300
+            halign: 'left'
+            text: 'Particles Counted:'
+
+        Label:
+            color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+            font_size: 16
+            text: 'Mean Particle Size:'
+
+        Label:
+            color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+            font_size: 16
+            text: 'Standard Deviation:'
+
+    BoxLayout:
+        center_x: root.center_x * 1.75 - 50
+        y: label_after_shear_device.y - self.height
+        size_hint: None, None
+        size: 120, 100
+        orientation: 'vertical'
+        padding: 3
+        spacing: 3
+
+        canvas.before:
+            Color:
+                rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            id: label_after_shear_count
+            color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+            font_size: 16
+            text: '0'
+
+        Label:
+            id: label_after_shear_mean
+            color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+            font_size: 16
+            text: '0 µm'
+
+        Label:
+            id: label_after_shear_sd
+            color: 232 / 255.0, 76 / 255.0, 94 / 255.0, 1
+            font_size: 16
+            text: '0 µm'
+
+
+

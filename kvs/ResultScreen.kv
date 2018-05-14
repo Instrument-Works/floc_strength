@@ -1,0 +1,58 @@
+<ResultScreen>:
+    grid_layout: grid_layout
+	canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [0, root.height - 43, root.width, root.height - 43]
+
+    Label:
+        y: root.height - 43
+        center_x: root.center_x 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Previous Results'       
+
+    Button:
+        background_normal: ''
+        background_color: 1, 1, 1, 0
+        markup: True
+        text: '[size=26][font=glyphicons][/font][/size]'
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        size_hint: None, None
+        size: 40, 40
+        pos: 20, root.height - 42
+        on_press: root.manager.transition.direction = 'right'
+        # on_release: root.manager.current = 'menu'
+        on_release: root.onTapBackButton()
+
+    Image:
+        size_hint: None, None
+        size: root.width, 45
+        pos: 0, root.height - 43 - self.height
+        source: 'images/result_table_header.png'
+
+    ScrollView:
+        size_hint: 1, None
+        size: root.width, root.height - 89
+        pos: 0, 0
+
+        GridLayout:
+            id: grid_layout
+            size_hint_y: None
+            cols: 7
+            row_default_height: '45dp'
+            row_force_default: True
+            spacing: 0, 2
+            padding: 0, 0

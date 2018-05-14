@@ -1,0 +1,219 @@
+<CameraScreen>:
+    image_camera_result: image_camera_result
+    slider_gain: slider_gain
+    slider_gamma: slider_gamma
+    slider_aoi: slider_aoi
+    button_apply_settings: button_apply_settings
+    button_factory_reset: button_factory_reset
+
+	canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Line:
+            points: [180, 0, 180, root.height]
+        Line:
+            points: [180, root.height - 43, root.width, root.height - 43]
+
+    Label:
+        id: label_title
+        pos: 180, root.height - 43 
+        size_hint: None, None
+        size: root.width - 180, 43
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        text_size: self.width, self.height
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'center'
+        font_size: 18
+        text: 'Camera Settings'       
+
+## Side Menu UI
+	BoxLayout:
+        pos: 0, 0
+        size_hint: None, None
+        size: 180, root.height
+        orientation: 'vertical'
+        padding: 15
+        spacing: 15
+
+        Button:
+            id: button_navi_general_settings
+        	background_normal: 'images/buttons/button_general_normal.png'
+            background_down: 'images/buttons/button_general_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_camera
+            state: 'down'
+            disabled: True
+        	background_normal: 'images/buttons/button_camera_normal.png'
+            background_disabled_down: 'images/buttons/button_camera_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_pump_calibration
+        	background_normal: 'images/buttons/button_pump_calibration_normal.png'
+            background_down: 'images/buttons/button_pump_calibration_down.png'
+            on_release: root.onTapNavigationButtons(self)
+        Button:
+            id: button_navi_back
+        	background_normal: 'images/buttons/button_back_normal.png'
+            background_down: 'images/buttons/button_back_down.png'
+            on_release: root.onTapNavigationButtons(self)
+
+## Main UI
+    Image:
+        id: image_camera_result
+        source: 'images/camera.jpg'
+        size_hint: None, None
+        size: 240, 240
+        center_x: label_title.center_x
+        y: root.height - self.height - 50
+
+    Label:
+        id: label_gain
+        size_hint: None, None
+        size: 100, 32
+        pos: 180, root.height - 300 - self.height
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'right'
+        valign: 'center'
+        font_size: 18
+        text: 'Gain'
+    Label:
+        id: label_gain_reading
+        size_hint: None, None
+        size: 100, 32
+        x: 566
+        center_y: label_gain.center_y
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'left'
+        valign: 'center'
+        font_size: 18
+        text: str(slider_gain.value)
+    Slider:
+        id: slider_gain
+        size_hint: None, None
+        height: 40
+        width: label_gain_reading.x - label_gain.right - 16
+        x: label_gain.right + 8
+        center_y: label_gain.center_y
+        orientation: 'horizontal'
+        cursor_image: 'images/slider/slider_cursor.png'
+        cursor_size: 40, 40 
+        min: 0
+        max: 24
+        step: 0.5
+        value: 35
+        value_track: True
+        value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+    Label:
+        id: label_gamma
+        size_hint: None, None
+        size: 100, 32
+        x: label_gain.x
+        y: label_gain.y - 50
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'right'
+        valign: 'center'
+        font_size: 18
+        text: 'Gamma'
+    Label:
+        id: label_gamma_reading
+        size_hint: None, None
+        size: 100, 32
+        x: label_gain_reading.x
+        center_y: label_gamma.center_y
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'left'
+        valign: 'center'
+        font_size: 18
+        text: str(slider_gamma.value)
+    Slider:
+        id: slider_gamma
+        size_hint: None, None
+        height: 40
+        width: label_gamma_reading.x - label_gamma.right - 16
+        x: label_gamma.right + 8
+        center_y: label_gamma.center_y
+        orientation: 'horizontal'
+        cursor_image: 'images/slider/slider_cursor.png'
+        cursor_size: 40, 40 
+        min: 0.3
+        max: 2.00
+        step: 0.1
+        value: 3
+        value_track: True
+        value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+    Label:
+        id: label_aoi
+        size_hint: None, None
+        size: 100, 32
+        x: label_gamma.x
+        y: label_gamma.y - 50
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'right'
+        valign: 'center'
+        font_size: 18
+        text: 'AoI'
+    Label:
+        id: label_aoi_reading
+        size_hint: None, None
+        size: 100, 32
+        x: label_gamma_reading.x
+        center_y: label_aoi.center_y
+        text_size: self.size
+        color: 0, 123 / 255.0, 195 / 255.0, 1
+        halign: 'left'
+        valign: 'center'
+        font_size: 18
+        text: str(int(slider_aoi.value))
+    Slider:
+        id: slider_aoi
+        size_hint: None, None
+        height: 40
+        width: label_aoi_reading.x - label_aoi.right - 16
+        x: label_aoi.right + 8
+        center_y: label_aoi.center_y
+        orientation: 'horizontal'
+        cursor_image: 'images/slider/slider_cursor.png'
+        cursor_size: 40, 40 
+        min: 200
+        max: 1000
+        step: 10
+        value: 500
+        value_track: True
+        value_track_color: 0, 143 / 255.0, 206 / 255.0, 1
+
+    Button:
+        id: button_apply_settings
+        size_hint: None, None
+        size: 150, 60
+        x: label_gain_reading.right - 40
+        center_y: label_gain_reading.center_y - 15
+        background_normal: 'images/buttons/button_apply_settings_normal.png'
+        background_down: 'images/buttons/button_apply_settings_down.png'
+        background_disabled_normal: 'images/buttons/button_apply_settings_normal_disabled.png'
+        on_release:root.onReleaseApplySettingsButton()
+
+    Button:
+        id: button_factory_reset
+        size_hint: None, None
+        size: 150, 60
+        x: button_apply_settings.x
+        y: button_apply_settings.y - self.height - 10
+        background_normal: 'images/buttons/button_factory_reset_normal.png'
+        background_down: 'images/buttons/button_factory_reset_down.png'
+        background_disabled_normal: 'images/buttons/button_factory_reset_normal_disabled.png'
+        on_release:root.onReleaseFactoryResetButton()
+

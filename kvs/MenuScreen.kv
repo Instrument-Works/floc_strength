@@ -1,0 +1,140 @@
+<MenuScreen>:
+
+	canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos:0, 0
+            size:self.size
+	canvas:
+        Color:
+            rgba: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+        Rectangle:
+            pos: root.width / 2 - 1, 0
+            size: 1, root.height
+    BoxLayout:
+    	pos: 0, 0
+        size: root.width, root.height
+        orientation: 'horizontal'
+        padding: 20
+        spacing: 20
+
+        BoxLayout:
+            orientation: 'vertical'
+            Image:
+                source: 'images/InstrumentWorks_logo.png'
+            Label:
+                color: 0, 123 / 255.0, 195 / 255.0, 1
+                size_hint_y: None
+                text_size: self.width, None
+                height: self.texture_size[1]
+                halign: 'center'
+                valign: 'center'
+            	font_size: 20
+            	text: 'Floc Strength Assessment Instrument'
+            Label:
+                color: 155 / 255.0, 154 / 255.0, 161 / 255.0, 1
+                font_size: 20
+                text:'Demonstration Unit'
+
+        GridLayout:
+            cols: 2
+            rows: 2
+            padding: 15
+            spacing: 15
+            Button:
+                background_normal: 'images/buttons/button1.png'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: root.manager.current = 'floc'
+            Button:
+                background_normal: 'images/buttons/button2.png'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: root.manager.current = 'manual'
+            Button:
+                background_normal: 'images/buttons/button3.png'
+                # on_release: root.mountUSBDrive()
+                on_press: root.manager.transition.direction = 'left'
+                on_release: root.manager.current = 'result'
+            Button:
+                background_normal: 'images/buttons/button4.png'
+                on_press: root.manager.transition.direction = 'left'
+                on_release: root.manager.current = 'generalSettings'
+
+<-ConfirmPopup>:
+    GridLayout:
+        cols: 1
+        padding: '12dp'
+        pos_hint: {'center': (0.5, 0.5)}
+        size_hint_x: 0.33
+        size_hint_y: None
+        height: self.minimum_height
+        
+        canvas:
+            Color:
+                rgba: root.background_color[:3] + [root.background_color[-1] * root._anim_alpha]
+            Rectangle:
+                size: root._window.size if root._window else (0, 0)
+            
+            Color:
+                rgb: 1, 1, 1
+            BorderImage:
+                source: root.background
+                border: root.border
+                pos: self.pos
+                size: self.size
+    
+        Label:
+            text: root.text
+            size_hint_y: None
+            height: self.texture_size[1] + dp(16)
+            text_size: self.width - dp(16), None
+            halign: 'center'
+        
+        BoxLayout:
+            size_hint_y: None
+            height: sp(48)
+            
+            Button:
+                text: root.cancel_text
+                on_press: root.cancel()
+            Button:
+                text: root.ok_text
+                on_press: root.ok()
+
+<-SingleConfirmPopup>:
+    GridLayout:
+        cols: 1
+        padding: '12dp'
+        pos_hint: {'center': (0.5, 0.5)}
+        size_hint_x: 0.33
+        size_hint_y: None
+        height: self.minimum_height
+        
+        canvas:
+            Color:
+                rgba: root.background_color[:3] + [root.background_color[-1] * root._anim_alpha]
+            Rectangle:
+                size: root._window.size if root._window else (0, 0)
+            
+            Color:
+                rgb: 1, 1, 1
+            BorderImage:
+                source: root.background
+                border: root.border
+                pos: self.pos
+                size: self.size
+    
+        Label:
+            text: root.text
+            size_hint_y: None
+            height: self.texture_size[1] + dp(16)
+            text_size: self.width - dp(16), None
+            halign: 'center'
+        
+        BoxLayout:
+            size_hint_y: None
+            height: sp(48)
+            
+            Button:
+                text: root.ok_text
+                on_press: root.ok()
